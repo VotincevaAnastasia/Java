@@ -3,9 +3,15 @@ import org.apache.commons.cli.*;
 import java.util.ArrayList;
 
 public class Main {
+    static CommandLineParser parser = new DefaultParser();
+    static Options options = new Options();
+
 
     public static void main(String[] args) throws ParseException {
         UserInput userInput = getUserInput(args);
+        if (userInput.help == true) {
+            new HelpFormatter().printHelp("java -cp \"out/production/IdeaProjects;lib/*\" Main", options);
+        }
 
 
         //*******************************************
@@ -34,9 +40,11 @@ public class Main {
                 } else {
                     System.out.println("password fatal");
                     flag = 2;
+                    break;
                     //System.exit(1);
                 }
             } else {
+                //System.out.println(userInput.login);
                 System.out.println("login fatal");
                 flag = 1;
                 //System.exit(2);
@@ -49,7 +57,7 @@ public class Main {
 
     private static UserInput getUserInput(String[] args) throws ParseException {
         // create Options object
-        Options options = new Options();
+
 
 // add t option
         options.addOption("h", false, "help");
@@ -62,7 +70,6 @@ public class Main {
         options.addOption("vol", true, "volume");
 
 
-        CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(options, args);
 
         UserInput userInput = new UserInput();

@@ -6,9 +6,9 @@ echo %errorlevel% **0
 
 java -cp "out/production/IdeaProjects;lib/*" Main -login 'XXX' -pass 'XXX'
 echo %errorlevel% **1
-java -cp "out/production/IdeaProjects;lib/*" Main -login 'jdoe' -pass 'XXX'
+java -cp "out/production/IdeaProjects;lib/*" Main -login jdoe -pass XXX
 echo %errorlevel% **2
-java -cp "out/production/IdeaProjects;lib/*" Main -login 'jdoe' -pass 'sup3rpaZZ'
+java -cp "out/production/IdeaProjects;lib/*" Main -login jdoe -pass sup3rpaZZ
 echo %errorlevel% **0
 
 java -cp "out/production/IdeaProjects;lib/*" Main -login 'jdoe' -pass 'sup3rpaZZ' -role 'READ' -res 'a'
