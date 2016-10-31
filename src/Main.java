@@ -23,10 +23,10 @@ public class Main {
         int flag = 100;
         for (int i = 0; i < users.size(); i++) {
             User g = users.get(i);
-            if (g.login.equals(args[0])) {
+            if (g.login.equals(userInput.login)) {
                 System.out.println("login OK");
 
-                if (g.password.equals(args[1])) {
+                if (g.password.equals(userInput.password)) {
                     System.out.println("login+password OK");
                     flag = 0;
                     break;
@@ -54,7 +54,7 @@ public class Main {
 // add t option
         options.addOption("h", false, "help");
         options.addOption("login", true, "login name");
-        options.addOption("password", true, "user password ");
+        options.addOption("pass", true, "user password ");
         options.addOption("role", true, "role r w e");
         options.addOption("res", true, "resource a.b.c");
         options.addOption("ds", true, "start_date YYYY.MM.DD");
@@ -69,7 +69,7 @@ public class Main {
 
         userInput.help = cmd.hasOption("h");
         userInput.login = cmd.getOptionValue("login");
-        userInput.password = cmd.getOptionValue("password");
+        userInput.password = cmd.getOptionValue("pass");
         userInput.role = cmd.getOptionValue("role");
         userInput.resource = cmd.getOptionValue("res");
         userInput.dateStart = cmd.getOptionValue("ds");
