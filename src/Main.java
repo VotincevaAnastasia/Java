@@ -9,8 +9,9 @@ public class Main {
 
     public static void main(String[] args) throws ParseException {
         UserInput userInput = getUserInput(args);
-        if (userInput.help == true) {
-            new HelpFormatter().printHelp("java -cp \"out/production/IdeaProjects;lib/*\" Main", options);
+        if (userInput.help || userInput.isEmpty())  {
+            new HelpFormatter().printHelp("spravka", options);
+            System.exit(0);
         }
 
 
