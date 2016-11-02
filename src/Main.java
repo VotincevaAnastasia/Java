@@ -7,7 +7,6 @@ public class Main {
     private static Options options = new Options();
 
 
-
     public static void main(String[] args) throws ParseException {
         UserInput userInput = getUserInput(args);
         //*******************************************
@@ -17,44 +16,102 @@ public class Main {
         users.add(new User(1, "Jane Row", "jrow", "Qweqrty12"));
 
         ArrayList<Role> roles = new ArrayList<Role>();
-        roles.add(new Role(1, users.get(0), "Read", "a"));
+        roles.add(new Role(0, users.get(0), "Read", "a"));
         roles.add(new Role(1, users.get(0), "Write", "a.b"));
-        roles.add(new Role(1, users.get(1), "Execute", "a.b.c"));
-        roles.add(new Role(1, users.get(0), "Execute", "a.bc"));
+        roles.add(new Role(2, users.get(1), "Execute", "a.b.c"));
+        roles.add(new Role(3, users.get(0), "Execute", "a.bc"));
 
-        if (userInput.isAuthentification()) {
-            int flag = 100;
+        int flag = 100;
+
+        if (userInput.isAuthorization()) {
+
             for (int i = 0; i < users.size(); i++) {
                 User g = users.get(i);
+
                 if (g.login.equals(userInput.login)) {
                     System.out.println("login OK");
 
                     if (g.password.equals(userInput.password)) {
                         System.out.println("login+password OK");
-                        flag = 0;
-                        break;
+                        //flag = 0;
+                        //break;
                         //System.exit(0);
+                        for (int j = 0; j < roles.size(); j++) {
+                            Role r = roles.get(j);
+                            if (r.name.equals(userInput.role)) {
+                                System.out.println("role OK");
+
+                                if (r.resourse.equals(userInput.resource)) {
+                                    System.out.println("ALL OK");
+                                    flag = 0;
+                                    System.exit(flag);
+                                    break;
+
+                                } else {
+                                    System.out.println("resource fatal");
+                                    flag = 4;
+                                    //System.exit(flag);
+                                    break;
+                                }
+
+                            } else {
+                                System.out.println("role fatal");
+                                flag = 3;
+
+
+                            }
+
+
+                        }
+                        System.exit(flag);
                     } else {
                         System.out.println("password fatal");
                         flag = 2;
                         break;
-                        //System.exit(1);
+
                     }
                 } else {
-                    //System.out.println(userInput.login);
+
                     System.out.println("login fatal");
                     flag = 1;
-                    //System.exit(2);
+
                 }
             }
             System.exit(flag);
 
-        } else if (userInput.isAuthorization()) {
 
         } else if (userInput.isAccaunting()) {
 
         } else {
-            new HelpFormatter().printHelp("spravka", options);
+            if (userInput.isAuthentification()) {
+                for (int i = 0; i < users.size(); i++) {
+                    User g = users.get(i);
+
+                    if (g.login.equals(userInput.login)) {
+                        System.out.println("login OK");
+
+                        if (g.password.equals(userInput.password)) {
+                            System.out.println("login+password OK");
+                            flag = 0;
+                            break;
+
+                        } else {
+                            System.out.println("password fatal");
+                            flag = 2;
+                            break;
+
+                        }
+                    } else {
+
+                        System.out.println("login fatal");
+                        flag = 1;
+
+                    }
+                }
+                System.exit(flag);
+
+            }
+            //new HelpFormatter().printHelp("spravka", options);
             //throw new IllegalStateException("Программа не может находиться в данном состоянии");
         }
     }

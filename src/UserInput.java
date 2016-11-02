@@ -20,6 +20,7 @@ public class UserInput {
 
     boolean isAuthorization() {
         return isAuthentification() && this.role != null && this.resource != null;
+        //return this.login != null && this.password != null && this.role != null && this.resource != null;
     }
 
     boolean isAccaunting() {
