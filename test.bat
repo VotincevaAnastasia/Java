@@ -12,7 +12,7 @@ if %errorlevel% equ %res% echo success %errorlevel% **%res%
 if %errorlevel% neq %res% echo error %errorlevel% **%res%
 
 echo 2.1
-java -cp "out/production/java;lib/*" Main -login 'XXX' -pass 'XXX'
+java -cp "out/production/java;lib/*" Main -login XXX -pass XXX
 set res=1
 if %errorlevel% equ %res% echo success %errorlevel% **%res%
 if %errorlevel% neq %res% echo error %errorlevel% **%res%
@@ -33,7 +33,7 @@ set res=0
 if %errorlevel% equ %res% echo success %errorlevel% **%res%
 if %errorlevel% neq %res% echo error %errorlevel% **%res%
 echo 3.2
-java -cp "out/production/java;lib/*" Main -login jdoe -pass sup3rpaZZ -role Write -res a.b
+java -cp "out/production/java;lib/*" Main -login jdoe -pass sup3rpaZZ -role Read -res a.b
 set res=0
 if %errorlevel% equ %res% echo success %errorlevel% **%res%
 if %errorlevel% neq %res% echo error %errorlevel% **%res%
@@ -59,28 +59,28 @@ if %errorlevel% equ %res% echo success %errorlevel% **%res%
 if %errorlevel% neq %res% echo error %errorlevel% **%res%
 
 echo 4.1
-java -cp "out/production/java;lib/*" Main -login 'jdoe' -pass 'sup3rpaZZ' -role 'Read' -res 'a.b' -ds '2015-01-01' -de '2015-12-31' -vol '100'
+java -cp "out/production/java;lib/*" Main -login jdoe -pass sup3rpaZZ -role Read -res a.b -ds 2015-01-01 -de 2015-12-31 -vol 100
 set res=0
 if %errorlevel% equ %res% echo success %errorlevel% **%res%
 if %errorlevel% neq %res% echo error %errorlevel% **%res%
 echo 4.2
-java -cp "out/production/java;lib/*" Main -login 'jdoe' -pass 'sup3rpaZZ' -role 'Read' -res 'a.b' -ds '01-01-2015' -de '2015-12-31' -vol '100'
+java -cp "out/production/java;lib/*" Main -login jdoe -pass sup3rpaZZ -role Read -res a.b -ds 01-01-2015 -de 2015-12-31 -vol 100
 set res=5
 if %errorlevel% equ %res% echo success %errorlevel% **%res%
 if %errorlevel% neq %res% echo error %errorlevel% **%res%
 echo 4.3
-java -cp "out/production/java;lib/*" Main -login 'jdoe' -pass 'sup3rpaZZ' -role 'Read' -res 'a.b' -ds '2015-01-01' -de '2015-12-31' -vol 'XXX'
+java -cp "out/production/java;lib/*" Main -login jdoe -pass sup3rpaZZ -role Read -res a.b -ds 2015-01-01 -de 2015-12-31 -vol XXX
 set res=5
 if %errorlevel% equ %res% echo success %errorlevel% **%res%
 if %errorlevel% neq %res% echo error %errorlevel% **%res%
 
 echo 5.1
-java -cp "out/production/java;lib/*" Main -login 'X' -pass 'X' -role 'Read' -res 'X' -ds '2015-01-01' -de '2015-12-31' -vol 'XXX'
+java -cp "out/production/java;lib/*" Main -login X -pass X -role Read -res X -ds 2015-01-01 -de 2015-12-31 -vol XXX
 set res=1
 if %errorlevel% equ %res% echo success %errorlevel% **%res%
 if %errorlevel% neq %res% echo error %errorlevel% **%res%
 echo 5.2
-java -cp "out/production/java;lib/*" Main -login 'X' -pass 'X' -role 'Read' -res 'X'
+java -cp "out/production/java;lib/*" Main -login X -pass X -role Read -res X
 set res=1
 if %errorlevel% equ %res% echo success %errorlevel% **%res%
 if %errorlevel% neq %res% echo error %errorlevel% **%res%

@@ -1,6 +1,8 @@
 import org.apache.commons.cli.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Main {
     private static CommandLineParser parser = new DefaultParser();
@@ -8,6 +10,18 @@ public class Main {
 
 
     public static void main(String[] args) throws ParseException {
+
+       /* try {
+            BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+            String s = bufferRead.readLine();
+            System.out.println(s);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+*/
+
+
         UserInput userInput = getUserInput(args);
         //*******************************************
 
@@ -21,9 +35,27 @@ public class Main {
         roles.add(new Role(2, users.get(1), "Execute", "a.b.c"));
         roles.add(new Role(3, users.get(0), "Execute", "a.bc"));
 
+
+
+
+
+
+
+      /*  int a;
+        Date b, c;
+        Accounting acc = new Accounting(a, b, c);
+        DB.input(acc);*/
+
+
         int flag = 100;
 
-        if (userInput.isAuthorization()) {
+
+        //***************************************************************************
+
+
+        if (userInput.isAccaunting()) {
+            System.out.println("isAccaunting");
+
 
             for (int i = 0; i < users.size(); i++) {
                 User g = users.get(i);
@@ -38,19 +70,45 @@ public class Main {
                         //System.exit(0);
                         for (int j = 0; j < roles.size(); j++) {
                             Role r = roles.get(j);
-                            if (r.name.equals(userInput.role)) {
+                            //TODO Исправить!!!!!
+                            if (r.name.equalsIgnoreCase(userInput.role)) {
                                 System.out.println("role OK");
 
-                                if (r.resourse.equals(userInput.resource)) {
+                                if (isDivide(r.resourse, userInput.resource)) {
                                     System.out.println("ALL OK");
                                     flag = 0;
-                                    System.exit(flag);
-                                    break;
+                                    //System.exit(flag);
+                                    ArrayList<Accounting> dates = new ArrayList<>();
+                                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                                    simpleDateFormat.setLenient(false);
+                                    Date ds = null;
+                                    try {
+                                        ds = simpleDateFormat.parse(userInput.dateStart);
+                                    } catch (java.text.ParseException e) {
+                                        System.exit(5);
+                                    }
+                                    Date de = null;
+                                    try {
+                                        de = simpleDateFormat.parse(userInput.dateEnd);
+                                    } catch (java.text.ParseException e) {
+                                        System.exit(5);
+                                    }
+                                    Integer vol = null;
+                                    try {
+                                        vol = Integer.valueOf(userInput.volume);
+                                    } catch (NumberFormatException e) {
+                                        System.exit(5);
+                                    }
+
+
+                                    dates.add(new Accounting(0, r, vol, ds, de));
+                                    System.exit(0);
+
 
                                 } else {
                                     System.out.println("resource fatal");
                                     flag = 4;
-                                    //System.exit(flag);
+                                    System.exit(flag);
                                     break;
                                 }
 
@@ -80,10 +138,74 @@ public class Main {
             System.exit(flag);
 
 
-        } else if (userInput.isAccaunting()) {
+        }
+
+//****************************************************************************************************************
+
+
+        if (userInput.isAuthorization()) {
+            System.out.println("isAuthorization");
+
+            for (int i = 0; i < users.size(); i++) {
+                User g = users.get(i);
+
+                if (g.login.equals(userInput.login)) {
+                    System.out.println("login OK");
+
+                    if (g.password.equals(userInput.password)) {
+                        System.out.println("login+password OK");
+                        //flag = 0;
+                        //break;
+                        //System.exit(0);
+                        for (int j = 0; j < roles.size(); j++) {
+                            Role r = roles.get(j);
+                            if (r.name.equals(userInput.role)) {
+                                System.out.println("role OK");
+
+                                //  if (r.resourse.equals(userInput.resource)) {
+                                if (isDivide(r.resourse, userInput.resource)) {
+                                    System.out.println("ALL OK");
+                                    flag = 0;
+                                    System.exit(flag);
+                                    break;
+
+                                } else {
+                                    System.out.println("resource fatal");
+                                    flag = 4;
+                                    //System.exit(flag);
+                                    break;
+                                }
+
+                            } else {
+                                System.out.println("role fatal");
+                                flag = 3;
+
+
+                            }
+
+
+                        }
+                        System.exit(flag);
+
+                    } else {
+                        System.out.println("password fatal");
+                        flag = 2;
+                        break;
+
+                    }
+                } else {
+
+                    System.out.println("login fatal");
+                    flag = 1;
+
+                }
+            }
+            System.exit(flag);
+
 
         } else {
             if (userInput.isAuthentification()) {
+                System.out.println("isAuthentification");
                 for (int i = 0; i < users.size(); i++) {
                     User g = users.get(i);
 
@@ -114,6 +236,28 @@ public class Main {
             //new HelpFormatter().printHelp("spravka", options);
             //throw new IllegalStateException("Программа не может находиться в данном состоянии");
         }
+
+
+        String res;
+        res = userInput.resource;
+
+    }
+
+    private static boolean isDivide(String resource, String res) {
+        String[] dividedRes = resource.split("\\.");
+        String[] dividedInp = res.split("\\.");
+
+        if (dividedRes.length > dividedInp.length) {
+            return false;
+        } else {
+            for (int i = 0; i < dividedRes.length; i++) {
+                if (!dividedInp[i].equals(dividedRes[i])) {
+                    return false;
+                }
+            }
+        }
+        return true;
+
     }
 
     private static UserInput getUserInput(String[] args) throws ParseException {
