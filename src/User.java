@@ -2,18 +2,18 @@
 
 public class User {
     int id;
-    String name, login, password, Salt;
+    String name;
+    String login;
+    String password;
+    String salt;
 
     public User(int id, String name, String login, String password) {
 
         this.id = id;
         this.name = name;
         this.login = login;
-        Salt = Security.Salt();
-        this.password = password;
-        //this.password=Security.MD5(Security.MD5(password) + Salt);
+        this.salt = Security.Salt();
+        this.password = Security.MD5(password + Security.MD5(this.salt));
 
     }
-
-
 }

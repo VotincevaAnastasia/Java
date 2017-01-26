@@ -11,19 +11,8 @@ public class Main {
 
     public static void main(String[] args) throws ParseException {
 
-       /* try {
-            BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
-            String s = bufferRead.readLine();
-            System.out.println(s);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-*/
-
 
         UserInput userInput = getUserInput(args);
-        //*******************************************
 
         ArrayList<User> users = new ArrayList<User>();
         users.add(new User(0, "John Doe", "jdoe", "sup3rpaZZ"));
@@ -35,23 +24,7 @@ public class Main {
         roles.add(new Role(2, users.get(1), "Execute", "a.b.c"));
         roles.add(new Role(3, users.get(0), "Execute", "a.bc"));
 
-
-
-
-
-
-
-      /*  int a;
-        Date b, c;
-        Accounting acc = new Accounting(a, b, c);
-        DB.input(acc);*/
-
-
         int flag = 100;
-
-
-        //***************************************************************************
-
 
         if (userInput.isAccaunting()) {
             System.out.println("isAccaunting");
@@ -65,9 +38,6 @@ public class Main {
 
                     if (g.password.equals(userInput.password)) {
                         System.out.println("login+password OK");
-                        //flag = 0;
-                        //break;
-                        //System.exit(0);
                         for (int j = 0; j < roles.size(); j++) {
                             Role r = roles.get(j);
                             //TODO Исправить!!!!!
@@ -77,7 +47,6 @@ public class Main {
                                 if (isDivide(r.resourse, userInput.resource)) {
                                     System.out.println("ALL OK");
                                     flag = 0;
-                                    //System.exit(flag);
                                     ArrayList<Accounting> dates = new ArrayList<>();
                                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                                     simpleDateFormat.setLenient(false);
@@ -140,8 +109,6 @@ public class Main {
 
         }
 
-//****************************************************************************************************************
-
 
         if (userInput.isAuthorization()) {
             System.out.println("isAuthorization");
@@ -154,15 +121,11 @@ public class Main {
 
                     if (g.password.equals(userInput.password)) {
                         System.out.println("login+password OK");
-                        //flag = 0;
-                        //break;
-                        //System.exit(0);
                         for (int j = 0; j < roles.size(); j++) {
                             Role r = roles.get(j);
                             if (r.name.equals(userInput.role)) {
                                 System.out.println("role OK");
 
-                                //  if (r.resourse.equals(userInput.resource)) {
                                 if (isDivide(r.resourse, userInput.resource)) {
                                     System.out.println("ALL OK");
                                     flag = 0;
@@ -172,7 +135,6 @@ public class Main {
                                 } else {
                                     System.out.println("resource fatal");
                                     flag = 4;
-                                    //System.exit(flag);
                                     break;
                                 }
 
@@ -233,13 +195,7 @@ public class Main {
                 System.exit(flag);
 
             }
-            //new HelpFormatter().printHelp("spravka", options);
-            //throw new IllegalStateException("Программа не может находиться в данном состоянии");
         }
-
-
-        String res;
-        res = userInput.resource;
 
     }
 
@@ -261,10 +217,9 @@ public class Main {
     }
 
     private static UserInput getUserInput(String[] args) throws ParseException {
-        // create Options object
 
 
-// add t option
+        // add t option
         options.addOption("h", false, "help");
         options.addOption("login", true, "login name");
         options.addOption("pass", true, "user password ");

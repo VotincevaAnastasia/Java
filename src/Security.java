@@ -23,8 +23,6 @@ public class Security {
         } catch (NoSuchAlgorithmException e) {
             System.out.println("wrong MD5 hashing");
             e.printStackTrace();
-
-
         }
         return null;
     }
